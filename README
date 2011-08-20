@@ -1,0 +1,13 @@
+proofBan
+
+	TODO: Test LogBlock
+	
+	To Add:
+		Hawke Implementation
+		BigBrother Implementation
+		
+Usage: 
+	/pban <playerName> <worldName> <Reason>
+	
+Permission Node:
+	proofBan
