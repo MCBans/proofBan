@@ -107,11 +107,17 @@ public class main extends JavaPlugin {
 			return true;
 		}
 		Player player = (Player)sender;
-		if(args.length==0){
+		if(args.length<2){
 			return true;
 		}
-		cmdhandle = new thread(this,args[0],player.getName(),args[1],getReason(args,"",2));
-		cmdhandle.start();
+		if(this.getServer().getWorld(args[1])!=null && args.length>=3){
+			cmdhandle = new thread(this,args[0],player.getName(),args[1],getReason(args,"",2));
+		}else if(this.getServer().getWorld(args[1])!=null && args.length>=2){
+			cmdhandle = new thread(this,args[0],player.getName(),this.getServer().getWorlds().get(0).getName(),getReason(args,"",1));
+		}
+		if(cmdhandle!=null){
+			cmdhandle.start();
+		}
 		return true;
 	}
 	public void Message(String msg){
