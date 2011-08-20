@@ -27,10 +27,10 @@ public class main extends JavaPlugin {
 	private LogBlock logb = null;
 	private BigBrother bigb = null;
 	public void onDisable() {
-		Message("Disabled proofBan");
+		Message("ProofBan has been disabled.");
 	}
 	public void onEnable() {
-		Message("Enabled proofBan");
+		Message("ProofBan has been enabled.");
 		setupPermissions();
 		setupLogging();
 		setupMCBans();
@@ -49,7 +49,7 @@ public class main extends JavaPlugin {
         Plugin bb = getServer().getPluginManager().getPlugin("BigBrother");
         if(bb!=null){
         	bigb = (BigBrother) bb;
-        	Message("Found LogBlock!");
+        	Message("Found BigBrother!");
         }
 	}
 	public void setupMCBans() {
@@ -59,7 +59,7 @@ public class main extends JavaPlugin {
 		    	mcb = ((mcbans)test);
 		    	Message("Found MCBans!");
 		    } else {
-		    	Message("MCBans not found, disabling!");
+		    	Message("ProofBan disabled. It requires MCBans which you can download at mcbans.com")
 		    	getServer().getPluginManager().disablePlugin(this);
 		    }
 		}
