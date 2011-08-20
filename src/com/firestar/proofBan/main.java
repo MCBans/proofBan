@@ -59,7 +59,7 @@ public class main extends JavaPlugin {
 		    	mcb = ((mcbans)test);
 		    	Message("Found MCBans!");
 		    } else {
-		    	Message("ProofBan disabled. It requires MCBans which you can download at mcbans.com")
+		    	Message("ProofBan disabled. It requires MCBans which you can download at mcbans.com");
 		    	getServer().getPluginManager().disablePlugin(this);
 		    }
 		}
