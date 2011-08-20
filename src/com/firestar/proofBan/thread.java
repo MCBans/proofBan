@@ -53,9 +53,9 @@ public class thread extends Thread {
 				for (BlockChange bc : plugin.logblockPlugin().getBlockChanges(params)){
 					tmp = new HashMap<String,String>();
 					tmp.put("d", String.valueOf(bc.date));
-					tmp.put("y", String.valueOf(bc.getLocation().getY()));
-					tmp.put("x", String.valueOf(bc.getLocation().getX()));
-					tmp.put("z", String.valueOf(bc.getLocation().getZ()));
+					tmp.put("y", String.valueOf(bc.loc.getY()));
+					tmp.put("x", String.valueOf(bc.loc.getX()));
+					tmp.put("z", String.valueOf(bc.loc.getZ()));
 					tmp.put("p", String.valueOf(bc.playerName));
 					tmp.put("t", String.valueOf(bc.type));
 					tmp.put("r", String.valueOf(bc.replaced));
