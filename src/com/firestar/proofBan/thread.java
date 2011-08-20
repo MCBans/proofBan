@@ -97,6 +97,8 @@ public class thread extends Thread {
 				//Call search function
 				performSearch(new hawkeSearch(plugin.getServer().getPlayer(admin)), parser, SearchDir.DESC);
 			}*/
+		}else if(plugin.bigbrotherPlugin()!=null){
+			
 		}
 	}
 	public String urlparse(HashMap<String,String> items){
