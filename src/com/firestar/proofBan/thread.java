@@ -53,10 +53,10 @@ public class thread extends Thread {
 				for (BlockChange bc : plugin.logblockPlugin().getBlockChanges(params)){
 					tmp = new HashMap<String,String>();
 					tmp.put("d", String.valueOf(bc.date));
-					tmp.put("y", String.valueOf(bc.loc.getY()));
-					tmp.put("x", String.valueOf(bc.loc.getX()));
-					tmp.put("z", String.valueOf(bc.loc.getZ()));
-					tmp.put("p", String.valueOf(bc.playerName));
+					if(bc.loc!=null){
+						tmp.put("l", bc.loc.toString());
+					}
+					tmp.put("p", bc.playerName);
 					tmp.put("t", String.valueOf(bc.type));
 					tmp.put("r", String.valueOf(bc.replaced));
 					g.add(tmp);
@@ -84,6 +84,9 @@ public class thread extends Thread {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (NullPointerException e) {
+				plugin.Message("What? THIS AGAIN?????");
 				e.printStackTrace();
 			}
 		}else if(plugin.hawkeyePlugin()!=null){
