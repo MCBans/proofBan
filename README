@@ -10,4 +10,4 @@ Usage:
 	/pban <playerName> <worldName> <Reason>
 	
 Permission Node:
-	proofBan
+	proof.ban
