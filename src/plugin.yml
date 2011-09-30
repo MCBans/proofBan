@@ -5,4 +5,9 @@ author: Firestar
 commands:
   pban:
     description: Ban a player with proof
-    usage: /<command> [seconds]
+    usage: /<command> [playername] [world/reason] [reason]
+    default: op
+permissions:
+  proof.ban:
+    description: Execute Proof Bans
+    default: op

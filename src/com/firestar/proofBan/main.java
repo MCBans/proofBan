@@ -6,7 +6,7 @@ import me.taylorkelly.bigbrother.BigBrother;
 
 import java.util.logging.Logger;
 
-import com.firestar.mcbans.mcbans;
+import com.mcbans.firestar.mcbans.bukkitInterface;
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 
@@ -23,7 +23,7 @@ public class main extends JavaPlugin {
 	static private Logger log = Logger.getLogger("Minecraft");
 	private PermissionHandler Permissions = null;
 	private HawkEye hawk = null;
-	private mcbans mcb = null;
+	private bukkitInterface mcb = null;
 	private LogBlock logb = null;
 	private BigBrother bigb = null;
 	public void onDisable() {
@@ -56,7 +56,7 @@ public class main extends JavaPlugin {
 		Plugin test = getServer().getPluginManager().getPlugin("mcbans");
 		if(mcb == null) {
 		    if(test != null) {
-		    	mcb = ((mcbans)test);
+		    	mcb = ((bukkitInterface)test);
 		    	Message("Found MCBans!");
 		    } else {
 		    	Message("MCBans not found, disabling!");
@@ -76,20 +76,20 @@ public class main extends JavaPlugin {
 	}
 	public boolean hasPerm(Player player){
 		if(Permissions==null){
-			if(player.hasPermission("proofBan")){
+			if(player.hasPermission("proof.ban")){
 				return true;
 			}else{
 				return false;
 			}
 		}else{
-			if(Permissions.has(player, "proofBan")){
+			if(Permissions.has(player, "proof.ban")){
 				return true;
 			}else{
 				return false;
 			}
 		}
 	}
-	public mcbans mcbansPlugin(){
+	public bukkitInterface mcbansPlugin(){
 		return mcb;
 	}
 	public LogBlock logblockPlugin(){
@@ -104,15 +104,20 @@ public class main extends JavaPlugin {
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		thread cmdhandle = null;
 		if(!(sender instanceof Player)){
+			sender.sendMessage("In-Game only please!");
 			return true;
 		}
 		Player player = (Player)sender;
 		if(args.length<2){
+			return false;
+		}
+		if(!this.hasPerm(player)){
+			player.sendMessage("You do not have permission!");
 			return true;
 		}
 		if(this.getServer().getWorld(args[1])!=null && args.length>=3){
 			cmdhandle = new thread(this,args[0],player.getName(),args[1],getReason(args,"",2));
-		}else if(this.getServer().getWorld(args[1])!=null && args.length>=2){
+		}else if(this.getServer().getWorld(args[1])==null && args.length>=2){
 			cmdhandle = new thread(this,args[0],player.getName(),this.getServer().getWorlds().get(0).getName(),getReason(args,"",1));
 		}
 		if(cmdhandle!=null){

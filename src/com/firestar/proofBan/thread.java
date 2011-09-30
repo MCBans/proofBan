@@ -1,19 +1,23 @@
 package com.firestar.proofBan;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+
+import com.mcbans.firestar.mcbans.pluginInterface.ban;
 
 
 
@@ -39,14 +43,15 @@ public class thread extends Thread {
 		if(plugin.logblockPlugin()!=null){
 			QueryParams params = new QueryParams(plugin.logblockPlugin());
 			params.setPlayer(player);
-			params.bct = BlockChangeType.CREATED;
+			params.bct = BlockChangeType.ALL;
 			params.limit = -1;
-			params.minutes = 1440;
 			params.world = plugin.getServer().getWorld(world);
 			params.needDate = true;
 			params.needType = true;
 			params.needData = true;
 			params.needPlayer = true;
+			params.needCoords = true;
+			params.needSignText = true;
 			ArrayList<HashMap<String,String>> g = new ArrayList<HashMap<String,String>>();
 			HashMap<String,String> tmp = null;
 			try {
@@ -54,9 +59,13 @@ public class thread extends Thread {
 					tmp = new HashMap<String,String>();
 					tmp.put("d", String.valueOf(bc.date));
 					if(bc.loc!=null){
-						tmp.put("l", bc.loc.toString());
+						tmp.put("x", String.valueOf(bc.loc.getX()));
+						tmp.put("y", String.valueOf(bc.loc.getY()));
+						tmp.put("z", String.valueOf(bc.loc.getZ()));
 					}
-					tmp.put("p", bc.playerName);
+					if(bc.signtext!=null){
+						tmp.put("signText", "\""+bc.signtext+"\"");
+					}
 					tmp.put("t", String.valueOf(bc.type));
 					tmp.put("r", String.valueOf(bc.replaced));
 					g.add(tmp);
@@ -67,7 +76,7 @@ public class thread extends Thread {
 				items.put("admin", admin);
 				items.put("changes", g.toString());
 				String derp = urlparse(items);
-				URL url = new URL("http://72.10.39.172/v2/"+plugin.mcbansPlugin().api_key);
+				URL url = new URL("http://72.10.39.172/v2/"+plugin.mcbansPlugin().getApiKey());
 	    	    URLConnection conn = url.openConnection();
 	    	    conn.setConnectTimeout(15000);
 	    	    conn.setReadTimeout(15000);
@@ -75,12 +84,28 @@ public class thread extends Thread {
 	    	    OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
 	    	    wr.write(derp);
 	    	    wr.flush();
-				wr.close();
-	    	    Player f = plugin.getServer().getPlayer(admin);
-	    	    if(f!=null){
-	    	    	f.sendMessage("["+ChatColor.DARK_AQUA+"Proof"+ChatColor.WHITE+"]"+ChatColor.LIGHT_PURPLE+" Report Sent!");
+	    	    StringBuilder buf = new StringBuilder();
+	    	    BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	    	    String line;
+	    	    while ((line = rd.readLine()) != null) {
+	    	    	buf.append(line);
 	    	    }
-	    	    plugin.mcbansPlugin().mcb_handler.ban( player, admin, reason, "g" );
+	    	    String result = buf.toString();
+				wr.close();
+				rd.close();
+				if(!result.equals("")){
+		    	    Player f = plugin.getServer().getPlayer(admin);
+		    	    if(f!=null){
+		    	    	f.sendMessage("["+ChatColor.DARK_AQUA+"Proof"+ChatColor.WHITE+"]"+ChatColor.LIGHT_PURPLE+" Report Sent!");
+		    	    }
+		    	    ban Ban = new ban(plugin.mcbansPlugin(), "globalBan", player, "", admin, reason+" proofID#"+result, "", "");
+					Ban.start();
+				}else{
+					Player f = plugin.getServer().getPlayer(admin);
+		    	    if(f!=null){
+		    	    	f.sendMessage("["+ChatColor.DARK_AQUA+"Proof"+ChatColor.WHITE+"]"+ChatColor.DARK_RED+" Failed to Ban!");
+		    	    }
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
