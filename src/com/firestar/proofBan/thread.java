@@ -17,7 +17,7 @@ import java.util.Map;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import com.mcbans.firestar.mcbans.pluginInterface.ban;
+import com.mcbans.firestar.mcbans.pluginInterface.Ban;
 
 
 
@@ -98,8 +98,8 @@ public class thread extends Thread {
 		    	    if(f!=null){
 		    	    	f.sendMessage("["+ChatColor.DARK_AQUA+"Proof"+ChatColor.WHITE+"]"+ChatColor.LIGHT_PURPLE+" Report Sent!");
 		    	    }
-		    	    ban Ban = new ban(plugin.mcbansPlugin(), "globalBan", player, "", admin, reason+" proofID#"+result, "", "");
-					Ban.start();
+		    	    Ban ban = new Ban(plugin.mcbansPlugin(), "globalBan", player, "", admin, reason+" proofID#"+result, "", "");
+					ban.start();
 				}else{
 					Player f = plugin.getServer().getPlayer(admin);
 		    	    if(f!=null){
