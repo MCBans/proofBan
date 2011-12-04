@@ -6,7 +6,7 @@ import me.taylorkelly.bigbrother.BigBrother;
 
 import java.util.logging.Logger;
 
-import com.mcbans.firestar.mcbans.bukkitInterface;
+import com.mcbans.firestar.mcbans.BukkitInterface;
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 
@@ -20,10 +20,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 
 public class main extends JavaPlugin {
-	static private Logger log = Logger.getLogger("Minecraft");
+	private static final Logger log = Logger.getLogger("Minecraft");
 	private PermissionHandler Permissions = null;
 	private HawkEye hawk = null;
-	private bukkitInterface mcb = null;
+	private BukkitInterface mcb = null;
 	private LogBlock logb = null;
 	private BigBrother bigb = null;
 	public void onDisable() {
@@ -56,7 +56,7 @@ public class main extends JavaPlugin {
 		Plugin test = getServer().getPluginManager().getPlugin("mcbans");
 		if(mcb == null) {
 		    if(test != null) {
-		    	mcb = ((bukkitInterface)test);
+		    	mcb = ((BukkitInterface)test);
 		    	Message("Found MCBans!");
 		    } else {
 		    	Message("MCBans not found, disabling!");
@@ -89,7 +89,7 @@ public class main extends JavaPlugin {
 			}
 		}
 	}
-	public bukkitInterface mcbansPlugin(){
+	public BukkitInterface mcbansPlugin(){
 		return mcb;
 	}
 	public LogBlock logblockPlugin(){
