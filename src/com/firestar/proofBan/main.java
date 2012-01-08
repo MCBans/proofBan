@@ -49,7 +49,7 @@ public class main extends JavaPlugin {
         Plugin bb = getServer().getPluginManager().getPlugin("BigBrother");
         if(bb!=null){
         	bigb = (BigBrother) bb;
-        	Message("Found LogBlock!");
+        	Message("Found BigBrother!");
         }
 	}
 	public void setupMCBans() {
