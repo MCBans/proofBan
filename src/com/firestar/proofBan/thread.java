@@ -76,7 +76,7 @@ public class thread extends Thread {
 				items.put("admin", admin);
 				items.put("changes", g.toString());
 				String derp = urlparse(items);
-				URL url = new URL("http://72.10.39.172/v2/"+plugin.mcbansPlugin().getApiKey());
+				URL url = new URL("http://api.mcbans.com/v2/"+plugin.mcbansPlugin().getApiKey());
 	    	    URLConnection conn = url.openConnection();
 	    	    conn.setConnectTimeout(15000);
 	    	    conn.setReadTimeout(15000);
