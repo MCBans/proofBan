@@ -39,17 +39,29 @@ public class main extends JavaPlugin {
 		Plugin he = getServer().getPluginManager().getPlugin("HawkEye");
         if (he != null){
         	hawk = (HawkEye) he;
-        	Message("Found HawkEye!");
+        	this.log.info("Found HawkEye!");
+        } else {
+        	this.log.info("HawkEye not found.");
         }
         Plugin lb = getServer().getPluginManager().getPlugin("LogBlock");
         if(lb!=null){
         	logb = (LogBlock) lb;
-        	Message("Found LogBlock!");
+        	this.log.info("Found LogBlock!");
+        } else {
+        	this.log.info("LogBlock not found.");
         }
         Plugin bb = getServer().getPluginManager().getPlugin("BigBrother");
         if(bb!=null){
         	bigb = (BigBrother) bb;
-        	Message("Found BigBrother!");
+        	this.log.info("Found BigBrother!");
+        } else {
+        	this.log.info("BigBrother not found.");
+        }
+        Plugin bb = getServer().getPluginManager().getPlugin("BigBrother");
+        Plugin lb = getServer().getPluginManager().getPlugin("LogBlock");
+        Plugin he = getServer().getPluginManager().getPlugin("HawkEye");
+        if (bb == null && lb == null && he == null) {
+        	this.log.severe("No compatible logging plugin found! Disabling plugin!")
         }
 	}
 	public void setupMCBans() {
