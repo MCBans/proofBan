@@ -115,7 +115,7 @@ public class thread extends Thread {
 				e.printStackTrace();
 			}
 		}else if(plugin.hawkeyePlugin()!=null){
-			/*if(plugin.getServer().getPlayer(admin)!=null){
+			if(plugin.getServer().getPlayer(admin)!=null){
 				SearchParser parser = new SearchParser();
 				parser.player = plugin.getServer().getPlayer(admin);
 				parser.radius = 5;
@@ -124,7 +124,7 @@ public class thread extends Thread {
 	
 				//Call search function
 				performSearch(new hawkeSearch(plugin.getServer().getPlayer(admin)), parser, SearchDir.DESC);
-			}*/
+			}
 		}else if(plugin.bigbrotherPlugin()!=null){
 			
 		}
