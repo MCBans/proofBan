@@ -2,6 +2,7 @@ name: proofBan
 main: com.firestar.proofBan.main
 version: 1
 author: Firestar
+softdepend: [LogBlock, HawkEye, BigBrother]
 commands:
   pban:
     description: Ban a player with proof
