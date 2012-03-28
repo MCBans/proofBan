@@ -66,7 +66,7 @@ public class main extends JavaPlugin {
 	}
 	public void setupMCBans() {
 		Plugin test = getServer().getPluginManager().getPlugin("mcbans");
-		if(mcb == null) {
+		if(mcbans == null) {
 		    if(test != null) {
 		    	mcb = ((BukkitInterface)test);
 		    	Message("Found MCBans!");
